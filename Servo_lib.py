@@ -48,11 +48,10 @@ class Servo:
             return 'Done'
         if self.angle_mini =< self.pos_angle =< self.angle_maxi:
             self.pos_angle = angle
+            duty = int((angle - self.angle_mini) * self.__angle_conversion_factor) + self.__min_duty
+            self.__motor.duty_u16(duty)
             return 'Done'
         return 'Value_ERROR'
-
-        duty = int((angle - self.angle_mini) * self.__angle_conversion_factor) + self.__min_duty
-        self.__motor.duty_u16(duty)
 
     def setAngleMiniMaxi(self, angle_mini, angle_maxi):
         ''' Spécifie les valeur maxi et mini de l'angle (en degrés) de rotation du servo...'''
